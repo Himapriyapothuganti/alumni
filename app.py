@@ -35,7 +35,17 @@ def create_alumni():
     else:
         return render_template('create_alumni.html')
 
-
+@app.route('/create_events', methods=['GET','POST'])
+def create_events():
+    if request.method == 'POST':
+        ename = request.form['ename']
+        date = request.form['date']
+        loc = request.form['loc']
+        des = request.form['des']
+        alumni_profiles.append({'ename': ename, 'date': date, 'loc': loc, 'des': des})
+        return redirect(url_for('display_events'))
+    else:
+        return render_template('create_events.html')
 
 
 @app.route('/message', methods=['POST'])
@@ -46,11 +56,6 @@ def message():
     # In a real-world scenario, you would implement message storage and handling here
     return redirect(url_for('home'))
 
-# Online forum route
-@app.route('/forum')
-def forum():
-    # This route could display forum posts and allow users to create new posts
-    return render_template('forum.html')
 
 # Events and workshops route
 @app.route('/events')
